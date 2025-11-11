@@ -6,12 +6,14 @@ import { Projects } from "@/components/Projects";
 import { Education } from "@/components/Education";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { ImageShowcase } from "@/components/ImageShowcase";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
+      <ImageShowcase />
       <About />
       <Skills />
       <Projects />

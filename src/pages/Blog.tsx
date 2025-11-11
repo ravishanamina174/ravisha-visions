@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Clock, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import heroImg from "@/components/images/img2.jpg";
 
 const blogPosts = [
   {
@@ -35,91 +36,91 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background lg:pl-20">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
+      {/* Small Hero with Picture */}
+      <motion.section
+        initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="border-b-4 border-foreground py-12 px-6 bg-muted"
+        className="relative h-[38vh] md:h-[42vh] overflow-hidden"
+        style={
+          {
+            backgroundImage: `url(${heroImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          } as React.CSSProperties
+        }
       >
-        <div className="max-w-7xl mx-auto">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/")}
-            className="mb-8 font-mono font-bold hover:text-primary"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            BACK TO HOME
-          </Button>
-
-          <div className="font-mono text-xs tracking-widest text-muted-foreground mb-4">
-            [BLOG_&_WRITINGS]
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex items-end pb-8">
+          <div className="w-full">
+            <Button
+              variant="ghost"
+              onClick={() => navigate("/")}
+              className="mb-6 font-mono font-bold hover:text-primary text-background"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              BACK TO HOME
+            </Button>
+            <div className="font-mono text-xs tracking-widest text-background/70 mb-2">
+              [BLOG_&_WRITINGS]
+            </div>
+            <h1 className="font-display font-black text-5xl md:text-7xl text-background leading-none">
+              Tech <span className="text-primary">Blog</span>
+            </h1>
+            <p className="font-mono text-sm text-background/80 mt-3 max-w-2xl">
+              Thoughts on software development, architecture, and lessons from real projects.
+            </p>
           </div>
-          <h1 className="font-display font-black text-7xl md:text-9xl leading-none">
-            TECH
-            <br />
-            <span className="text-primary">BLOG</span>
-          </h1>
-          <p className="font-mono text-sm text-foreground/60 mt-6 max-w-2xl">
-            Thoughts on software development, architecture decisions, and lessons learned from building real-world applications.
-          </p>
         </div>
-      </motion.div>
+      </motion.section>
 
       {/* Blog Posts */}
-      <div className="py-20 px-6">
+      <div className="py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="space-y-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {blogPosts.map((post, index) => (
               <motion.article
                 key={post.title}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ x: 10 }}
-                className="group cursor-pointer"
+                className="group cursor-pointer bg-muted border-4 border-foreground brutalist-shadow-sm hover:brutalist-shadow transition-all"
               >
-                <div className="bg-muted border-4 border-foreground brutalist-shadow-sm hover:brutalist-shadow transition-all p-8">
-                  <div className="grid lg:grid-cols-12 gap-8 items-center">
-                    {/* Left - Content */}
-                    <div className="lg:col-span-8 space-y-4">
-                      <div className="flex items-center gap-4 flex-wrap">
-                        <span className={`${post.color} text-background px-4 py-1 font-mono text-xs font-bold`}>
-                          {post.category}
-                        </span>
-                        <div className="flex items-center gap-4 font-mono text-xs text-muted-foreground">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="h-4 w-4" />
-                            {new Date(post.date).toLocaleDateString('en-US', { 
-                              year: 'numeric', 
-                              month: 'short', 
-                              day: 'numeric' 
-                            })}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Clock className="h-4 w-4" />
-                            {post.readTime}
-                          </div>
-                        </div>
+                <div className="p-8 h-full flex flex-col">
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <span className={`${post.color} text-background px-4 py-1 font-mono text-xs font-bold`}>
+                      {post.category}
+                    </span>
+                    <div className="flex items-center gap-4 font-mono text-xs text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4" />
+                        {new Date(post.date).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'short', 
+                          day: 'numeric' 
+                        })}
                       </div>
-
-                      <h2 className="font-display font-black text-3xl md:text-4xl group-hover:text-primary transition-colors">
-                        {post.title}
-                      </h2>
-
-                      <p className="font-mono text-sm text-foreground/70 leading-relaxed">
-                        {post.excerpt}
-                      </p>
+                      <div className="flex items-center gap-2">
+                        <Clock className="h-4 w-4" />
+                        {post.readTime}
+                      </div>
                     </div>
+                  </div>
 
-                    {/* Right - CTA */}
-                    <div className="lg:col-span-4 flex lg:justify-end">
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="bg-foreground text-background border-4 border-foreground w-32 h-32 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors"
-                      >
-                        <ArrowUpRight className="h-12 w-12" />
-                      </motion.div>
-                    </div>
+                  <h2 className="font-display font-black text-3xl md:text-4xl group-hover:text-primary transition-colors mt-4">
+                    {post.title}
+                  </h2>
+
+                  <p className="font-mono text-sm text-foreground/70 leading-relaxed mt-3 flex-1">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="mt-6 flex justify-end">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      className="bg-foreground text-background border-4 border-foreground w-16 h-16 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors"
+                    >
+                      <ArrowUpRight className="h-8 w-8" />
+                    </motion.div>
                   </div>
                 </div>
               </motion.article>

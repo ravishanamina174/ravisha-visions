@@ -12,27 +12,9 @@ export const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen lg:pl-20 flex items-center justify-center relative overflow-hidden noise-bg">
-      {/* Geometric Background Elements */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-20 right-20 w-40 h-40 border-4 border-primary opacity-20"
-      />
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-20 left-20 w-60 h-60 border-4 border-accent opacity-20"
-        style={{ transform: "rotate(45deg)" }}
-      />
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 4, repeat: Infinity }}
-        className="absolute top-1/2 right-1/4 w-32 h-32 bg-secondary opacity-10"
-      />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="min-h-screen lg:pl-20 flex items-center justify-center relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+        <div className="grid lg:grid-cols-1 gap-12 items-center">
           {/* Left Side - Text */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -142,44 +124,6 @@ export const Hero = () => {
                 <Mail className="h-6 w-6" />
               </motion.a>
             </motion.div>
-          </motion.div>
-
-          {/* Right Side - Decorative */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative hidden lg:block"
-          >
-            <div className="relative w-full h-[600px]">
-              {/* Large Text Background */}
-              <motion.div
-                animate={{ rotate: [0, 5, 0, -5, 0] }}
-                transition={{ duration: 8, repeat: Infinity }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <span className="font-display font-black text-[20rem] text-foreground/5 leading-none">
-                  R
-                </span>
-              </motion.div>
-
-              {/* Floating Elements */}
-              <motion.div
-                animate={{ y: [0, -30, 0] }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="absolute top-20 right-20 w-24 h-24 bg-primary/80"
-              />
-              <motion.div
-                animate={{ y: [0, 30, 0] }}
-                transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
-                className="absolute bottom-40 left-20 w-32 h-32 bg-accent/80"
-              />
-              <motion.div
-                animate={{ y: [0, -20, 0] }}
-                transition={{ duration: 3.5, repeat: Infinity, delay: 1 }}
-                className="absolute top-1/2 right-10 w-20 h-20 bg-secondary/80"
-              />
-            </div>
           </motion.div>
         </div>
       </div>
