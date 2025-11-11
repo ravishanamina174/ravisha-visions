@@ -47,7 +47,7 @@ export const Hero = () => {
                 transition={{ delay: 0.2 }}
                 className="font-mono text-sm tracking-widest text-muted-foreground"
               >
-                [DEVELOPER_PORTFOLIO_2024]
+                [DEVELOPER_PORTFOLIO_2025]
               </motion.div>
 
               <motion.h1
@@ -71,7 +71,7 @@ export const Hero = () => {
                 <p className="font-mono text-lg text-foreground/80 pl-4">
                   Software Engineering Undergraduate
                   <br />
-                  Full-Stack Developer | MERN Stack Specialist
+                  Full-Stack Developer | MERN Stack Dev
                 </p>
               </motion.div>
             </div>
