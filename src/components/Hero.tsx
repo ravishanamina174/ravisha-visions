@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
+import { AnimatedOrbs } from "./AnimatedOrbs";
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -13,14 +14,14 @@ export const Hero = () => {
 
   return (
     <section className="min-h-screen lg:pl-20 flex items-center justify-center relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        <div className="grid lg:grid-cols-1 gap-12 items-center">
+      <div className="w-full px-6 relative z-10">
+        <div className="grid lg:grid-cols-3 gap-8 items-center ml-auto mr-0" style={{ maxWidth: "1400px", marginLeft: "auto", marginRight: 0 }}>
           {/* Left Side - Text */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-8 lg:col-span-1"
           >
             <div className="space-y-4">
               <motion.div
@@ -124,6 +125,16 @@ export const Hero = () => {
                 <Mail className="h-6 w-6" />
               </motion.a>
             </motion.div>
+          </motion.div>
+
+          {/* Right Side - Animated Orbs */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="hidden lg:flex items-center justify-center w-full h-[500px] lg:h-[600px] lg:col-span-2"
+          >
+            <AnimatedOrbs />
           </motion.div>
         </div>
       </div>
