@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Mail, Linkedin, Github, Send } from "lucide-react";
 import { Button } from "./ui/button";
@@ -17,63 +16,139 @@ export const Contact = () => {
     message: "",
   });
 
-  const socials = [
-    {
-      icon: Mail,
-      label: "Email",
-      href: "mailto:raveeshanamina48@gmail.com",
-      color: "from-red-500 to-orange-500",
-    },
-    {
-      icon: Linkedin,
-      label: "LinkedIn",
-      href: "https://linkedin.com/in/ravisha-abeysekara",
-      color: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: Github,
-      label: "GitHub",
-      href: "https://github.com/ravishanamina174",
-      color: "from-gray-700 to-gray-900",
-    },
-  ];
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
+      title: "Message Sent!",
+      description: "I'll get back to you as soon as possible.",
     });
     setFormData({ name: "", email: "", message: "" });
   };
 
+  const socials = [
+    {
+      icon: Mail,
+      label: "EMAIL",
+      value: "raveeshanamina48@gmail.com",
+      href: "mailto:raveeshanamina48@gmail.com",
+      color: "bg-primary",
+    },
+    {
+      icon: Linkedin,
+      label: "LINKEDIN",
+      value: "ravisha-abeysekara",
+      href: "https://linkedin.com/in/ravisha-abeysekara",
+      color: "bg-accent",
+    },
+    {
+      icon: Github,
+      label: "GITHUB",
+      value: "ravishanamina174",
+      href: "https://github.com/ravishanamina174",
+      color: "bg-secondary",
+    },
+  ];
+
   return (
-    <section id="contact" className="py-32 px-6 relative overflow-hidden">
-      <div className="absolute inset-0 gradient-mesh opacity-30" />
-      
-      <div className="max-w-5xl mx-auto relative z-10" ref={ref}>
+    <section id="contact" className="min-h-screen lg:pl-20 py-32 px-6 bg-muted relative overflow-hidden">
+      {/* Decorative Elements */}
+      <motion.div
+        animate={{ y: [0, -30, 0] }}
+        transition={{ duration: 5, repeat: Infinity }}
+        className="absolute top-20 right-20 w-32 h-32 bg-primary/20"
+      />
+      <motion.div
+        animate={{ y: [0, 30, 0] }}
+        transition={{ duration: 6, repeat: Infinity }}
+        className="absolute bottom-20 left-20 w-40 h-40 bg-accent/20"
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <span className="text-primary font-display font-semibold text-sm tracking-widest uppercase">
-            Get In Touch
-          </span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mt-4">
-            Let's <span className="text-gradient">Connect</span>
+          <div className="font-mono text-xs tracking-widest text-muted-foreground mb-4">
+            [GET_IN_TOUCH]
+          </div>
+          <h2 className="font-display font-black text-7xl md:text-9xl leading-none">
+            LET'S
+            <br />
+            <span className="text-primary">CONNECT</span>
           </h2>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
-            Have a project in mind or just want to chat? I'd love to hear from you.
-          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Social Links */}
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Left - Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.2 }}
+          >
+            <div className="bg-background border-4 border-foreground brutalist-shadow p-8">
+              <h3 className="font-display font-black text-3xl mb-8">
+                SEND MESSAGE
+              </h3>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="font-mono text-xs font-bold text-foreground mb-2 block">
+                    [NAME]
+                  </label>
+                  <Input
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="border-4 border-foreground focus-visible:ring-0 focus-visible:ring-offset-0 font-mono"
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-mono text-xs font-bold text-foreground mb-2 block">
+                    [EMAIL]
+                  </label>
+                  <Input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="border-4 border-foreground focus-visible:ring-0 focus-visible:ring-offset-0 font-mono"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-mono text-xs font-bold text-foreground mb-2 block">
+                    [MESSAGE]
+                  </label>
+                  <Textarea
+                    required
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="border-4 border-foreground focus-visible:ring-0 focus-visible:ring-offset-0 font-mono min-h-[150px] resize-none"
+                    placeholder="Your message..."
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full bg-foreground text-background hover:bg-foreground/90 border-4 border-foreground brutalist-shadow-sm font-display font-bold text-lg"
+                >
+                  <Send className="mr-2 h-5 w-5" />
+                  SEND MESSAGE
+                </Button>
+              </form>
+            </div>
+          </motion.div>
+
+          {/* Right - Social Links */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.3 }}
             className="space-y-6"
           >
             {socials.map((social, index) => (
@@ -82,83 +157,51 @@ export const Contact = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                whileHover={{ scale: 1.02, x: 10 }}
-                className="flex items-center gap-4 p-6 backdrop-blur-sm bg-card border border-border rounded-2xl hover-glow group"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.4 + index * 0.1 }}
+                whileHover={{ x: 10 }}
+                className="block group"
               >
-                <div className={`p-4 bg-gradient-to-r ${social.color} rounded-xl`}>
-                  <social.icon className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <p className="font-semibold text-lg group-hover:text-gradient transition-all">
-                    {social.label}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {social.label === "Email" && "raveeshanamina48@gmail.com"}
-                    {social.label === "LinkedIn" && "ravisha-abeysekara"}
-                    {social.label === "GitHub" && "@ravishanamina174"}
-                  </p>
+                <div className="bg-background border-4 border-foreground brutalist-shadow-sm p-6 hover:brutalist-shadow transition-all">
+                  <div className="flex items-start gap-6">
+                    <div className={`${social.color} w-16 h-16 flex items-center justify-center flex-shrink-0`}>
+                      <social.icon className="h-8 w-8 text-background" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-mono text-xs font-bold text-muted-foreground mb-2">
+                        {social.label}
+                      </div>
+                      <div className="font-mono text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                        {social.value}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </motion.a>
             ))}
-          </motion.div>
 
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.4 }}
-          >
-            <form
-              onSubmit={handleSubmit}
-              className="backdrop-blur-sm bg-card border border-border rounded-2xl p-8 space-y-6"
+            {/* Availability Status */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.7 }}
+              className="bg-primary border-4 border-foreground p-6"
             >
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Name</label>
-                <Input
-                  placeholder="Your name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                  className="rounded-xl"
+              <div className="flex items-center gap-3 mb-3">
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-3 h-3 bg-secondary rounded-full"
                 />
+                <span className="font-display font-black text-xl text-primary-foreground">
+                  CURRENTLY AVAILABLE
+                </span>
               </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Email</label>
-                <Input
-                  type="email"
-                  placeholder="your.email@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                  className="rounded-xl"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Message</label>
-                <Textarea
-                  placeholder="Your message..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  required
-                  rows={5}
-                  className="rounded-xl resize-none"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full rounded-xl group"
-              >
-                Send Message
-                <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </form>
+              <p className="font-mono text-sm text-primary-foreground/80">
+                Open for collaborations, freelance projects, and full-time opportunities.
+              </p>
+            </motion.div>
           </motion.div>
         </div>
       </div>

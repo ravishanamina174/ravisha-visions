@@ -1,86 +1,129 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { GraduationCap, BookOpen } from "lucide-react";
+
+const courses = [
+  "Data Structures & Algorithms",
+  "Object-Oriented Programming",
+  "Software Architecture & Design",
+  "Business Analysis & Requirements",
+  "Software Engineering Methods",
+  "Database Management Systems",
+];
 
 export const Education = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const courses = [
-    "Data Structures & Algorithms",
-    "Object-Oriented Programming",
-    "Software Architecture",
-    "Business Analysis",
-    "Software Engineering Methods",
-    "Database Management Systems",
-  ];
-
   return (
-    <section id="education" className="py-32 px-6 relative">
-      <div className="max-w-5xl mx-auto" ref={ref}>
+    <section id="education" className="min-h-screen lg:pl-20 py-32 px-6 bg-background relative overflow-hidden">
+      {/* Decorative Elements */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        className="absolute top-20 right-20 w-40 h-40 border-4 border-secondary opacity-20"
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <span className="text-primary font-display font-semibold text-sm tracking-widest uppercase">
-            Academic Background
-          </span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mt-4">
-            <span className="text-gradient">Education</span>
+          <div className="font-mono text-xs tracking-widest text-muted-foreground mb-4">
+            [ACADEMIC_BACKGROUND]
+          </div>
+          <h2 className="font-display font-black text-7xl md:text-9xl leading-none">
+            EDU
+            <span className="text-primary">CATION</span>
           </h2>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2 }}
-          className="backdrop-blur-sm bg-card border border-border rounded-3xl p-8 md:p-12 hover-glow"
-        >
-          <div className="flex flex-col md:flex-row gap-8">
-            {/* Icon */}
-            <div className="flex-shrink-0">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center">
-                <GraduationCap className="h-10 w-10 text-white" />
-              </div>
-            </div>
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Left - University Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.2 }}
+          >
+            <div className="bg-muted border-4 border-foreground brutalist-shadow p-8 md:p-12">
+              <GraduationCap className="h-16 w-16 text-primary mb-6" />
+              
+              <h3 className="font-display font-black text-4xl mb-4">
+                SLTC RESEARCH
+                <br />
+                <span className="text-primary">UNIVERSITY</span>
+              </h3>
 
-            {/* Content */}
-            <div className="flex-1 space-y-6">
-              <div>
-                <h3 className="font-display font-bold text-3xl mb-2">
-                  SLTC Research University
-                </h3>
-                <p className="text-xl text-primary font-semibold">
-                  BSc (Hons) Software Engineering
-                </p>
-                <p className="text-muted-foreground mt-1">2023 – 2027</p>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-foreground">
-                  <BookOpen className="h-5 w-5 text-primary" />
-                  <span className="font-semibold">Relevant Coursework:</span>
+              <div className="space-y-4 font-mono text-sm">
+                <div className="flex items-start gap-4">
+                  <div className="w-2 h-2 bg-primary mt-2 flex-shrink-0" />
+                  <div>
+                    <div className="font-bold text-foreground">BSc (Hons) Software Engineering</div>
+                    <div className="text-muted-foreground">Undergraduate Program</div>
+                  </div>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {courses.map((course, index) => (
-                    <motion.div
-                      key={course}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      className="flex items-center gap-2"
-                    >
-                      <div className="w-2 h-2 bg-gradient-to-r from-primary to-accent rounded-full" />
-                      <span className="text-muted-foreground">{course}</span>
-                    </motion.div>
-                  ))}
+
+                <div className="flex items-start gap-4">
+                  <div className="w-2 h-2 bg-accent mt-2 flex-shrink-0" />
+                  <div>
+                    <div className="font-bold text-foreground">2023 — 2027</div>
+                    <div className="text-muted-foreground">Expected Graduation</div>
+                  </div>
                 </div>
               </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-4 mt-8">
+                <div className="bg-primary border-4 border-foreground p-4 text-center">
+                  <div className="font-display font-black text-3xl text-primary-foreground">4</div>
+                  <div className="font-mono text-xs text-primary-foreground/80 mt-1">YEARS</div>
+                </div>
+                <div className="bg-accent border-4 border-foreground p-4 text-center">
+                  <div className="font-display font-black text-3xl text-accent-foreground">2027</div>
+                  <div className="font-mono text-xs text-accent-foreground/80 mt-1">GRADUATE</div>
+                </div>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+
+          {/* Right - Coursework */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.3 }}
+          >
+            <div className="bg-background border-4 border-foreground p-8 md:p-12 h-full">
+              <div className="flex items-center gap-4 mb-8">
+                <BookOpen className="h-12 w-12 text-accent" />
+                <h4 className="font-display font-black text-3xl">
+                  RELEVANT
+                  <br />
+                  COURSEWORK
+                </h4>
+              </div>
+
+              <div className="space-y-4">
+                {courses.map((course, index) => (
+                  <motion.div
+                    key={course}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.4 + index * 0.1 }}
+                    className="group flex items-start gap-4 p-4 border-2 border-foreground hover:bg-muted transition-colors cursor-default"
+                  >
+                    <div className="font-display font-black text-2xl text-muted-foreground group-hover:text-primary transition-colors">
+                      0{index + 1}
+                    </div>
+                    <div className="font-mono text-sm font-bold text-foreground pt-1">
+                      {course}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

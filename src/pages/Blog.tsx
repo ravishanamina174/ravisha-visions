@@ -1,32 +1,32 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const blogPosts = [
   {
-    title: "How I built my full-stack e-commerce app",
-    excerpt:
-      "A deep dive into building Mebius, a complete digital shopping ecosystem with modern architecture, payment integration, and scalable backend design.",
+    title: "HOW I BUILT MY FULL-STACK E-COMMERCE APP",
+    excerpt: "A deep dive into building Mebius - from architecture decisions to deployment strategies.",
     date: "2024-03-15",
     readTime: "8 min read",
-    tags: ["Full-Stack", "E-commerce", "MERN"],
+    category: "FULL-STACK",
+    color: "bg-primary",
   },
   {
-    title: "Lessons from my first backend project",
-    excerpt:
-      "Key takeaways and challenges faced while developing my first production-ready backend system. From database design to API architecture.",
+    title: "LESSONS FROM MY FIRST BACKEND PROJECT",
+    excerpt: "Key learnings and mistakes I made while building my first Node.js backend application.",
     date: "2024-02-20",
-    readTime: "6 min read",
-    tags: ["Backend", "Node.js", "Learning"],
+    readTime: "5 min read",
+    category: "BACKEND",
+    color: "bg-accent",
   },
   {
-    title: "Building responsive UIs with Tailwind CSS",
-    excerpt:
-      "My approach to creating beautiful, responsive interfaces using Tailwind CSS and modern design principles. Tips and tricks for clean code.",
+    title: "REACT PERFORMANCE OPTIMIZATION TECHNIQUES",
+    excerpt: "Practical tips for making your React applications faster and more efficient.",
     date: "2024-01-10",
-    readTime: "5 min read",
-    tags: ["Frontend", "CSS", "Design"],
+    readTime: "10 min read",
+    category: "FRONTEND",
+    color: "bg-secondary",
   },
 ];
 
@@ -34,85 +34,91 @@ const Blog = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background lg:pl-20">
       {/* Header */}
-      <div className="sticky top-0 z-50 backdrop-blur-lg bg-background/80 border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="border-b-4 border-foreground py-12 px-6 bg-muted"
+      >
+        <div className="max-w-7xl mx-auto">
           <Button
             variant="ghost"
             onClick={() => navigate("/")}
-            className="gap-2"
+            className="mb-8 font-mono font-bold hover:text-primary"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            BACK TO HOME
           </Button>
-        </div>
-      </div>
 
-      {/* Hero Section */}
-      <section className="py-20 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 gradient-mesh opacity-30" />
-        
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto text-center relative z-10"
-        >
-          <h1 className="font-display font-bold text-5xl md:text-6xl mb-6">
-            <span className="text-gradient">Blog</span> & Writings
+          <div className="font-mono text-xs tracking-widest text-muted-foreground mb-4">
+            [BLOG_&_WRITINGS]
+          </div>
+          <h1 className="font-display font-black text-7xl md:text-9xl leading-none">
+            TECH
+            <br />
+            <span className="text-primary">BLOG</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Thoughts on software development, web technologies, and lessons learned
-            along the way.
+          <p className="font-mono text-sm text-foreground/60 mt-6 max-w-2xl">
+            Thoughts on software development, architecture decisions, and lessons learned from building real-world applications.
           </p>
-        </motion.div>
-      </section>
+        </div>
+      </motion.div>
 
-      {/* Blog Posts Grid */}
-      <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Blog Posts */}
+      <div className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="space-y-8">
             {blogPosts.map((post, index) => (
               <motion.article
                 key={post.title}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
+                whileHover={{ x: 10 }}
                 className="group cursor-pointer"
               >
-                <div className="h-full backdrop-blur-sm bg-card border border-border rounded-2xl p-6 hover-glow transition-all duration-300">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded-lg"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                <div className="bg-muted border-4 border-foreground brutalist-shadow-sm hover:brutalist-shadow transition-all p-8">
+                  <div className="grid lg:grid-cols-12 gap-8 items-center">
+                    {/* Left - Content */}
+                    <div className="lg:col-span-8 space-y-4">
+                      <div className="flex items-center gap-4 flex-wrap">
+                        <span className={`${post.color} text-background px-4 py-1 font-mono text-xs font-bold`}>
+                          {post.category}
+                        </span>
+                        <div className="flex items-center gap-4 font-mono text-xs text-muted-foreground">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4" />
+                            {new Date(post.date).toLocaleDateString('en-US', { 
+                              year: 'numeric', 
+                              month: 'short', 
+                              day: 'numeric' 
+                            })}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Clock className="h-4 w-4" />
+                            {post.readTime}
+                          </div>
+                        </div>
+                      </div>
 
-                  {/* Title */}
-                  <h2 className="font-display font-bold text-xl mb-3 group-hover:text-gradient transition-all">
-                    {post.title}
-                  </h2>
+                      <h2 className="font-display font-black text-3xl md:text-4xl group-hover:text-primary transition-colors">
+                        {post.title}
+                      </h2>
 
-                  {/* Excerpt */}
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Meta */}
-                  <div className="flex items-center gap-4 text-xs text-muted-foreground pt-4 border-t border-border">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-3 w-3" />
-                      <span>{new Date(post.date).toLocaleDateString()}</span>
+                      <p className="font-mono text-sm text-foreground/70 leading-relaxed">
+                        {post.excerpt}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      <span>{post.readTime}</span>
+
+                    {/* Right - CTA */}
+                    <div className="lg:col-span-4 flex lg:justify-end">
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        className="bg-foreground text-background border-4 border-foreground w-32 h-32 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors"
+                      >
+                        <ArrowUpRight className="h-12 w-12" />
+                      </motion.div>
                     </div>
                   </div>
                 </div>
@@ -122,19 +128,19 @@ const Blog = () => {
 
           {/* Coming Soon Message */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-center mt-16"
+            className="mt-16 text-center"
           >
-            <div className="inline-block backdrop-blur-sm bg-card/50 border border-border rounded-2xl px-8 py-4">
-              <p className="text-muted-foreground">
-                More articles coming soon! Stay tuned for updates.
+            <div className="inline-block bg-muted border-4 border-foreground p-8">
+              <p className="font-mono text-lg">
+                <span className="font-bold text-primary">{">"}</span> More articles coming soon...
               </p>
             </div>
           </motion.div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

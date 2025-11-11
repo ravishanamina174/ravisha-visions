@@ -1,48 +1,26 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code2, Database, Wrench, Cloud } from "lucide-react";
 
 const skillCategories = [
   {
-    title: "Frontend",
-    icon: Code2,
-    skills: [
-      { name: "React.js", level: 90 },
-      { name: "Next.js", level: 85 },
-      { name: "TypeScript", level: 85 },
-      { name: "Tailwind CSS", level: 95 },
-    ],
+    title: "FRONTEND",
+    color: "bg-primary",
+    skills: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
   },
   {
-    title: "Backend",
-    icon: Database,
-    skills: [
-      { name: "Node.js", level: 88 },
-      { name: "Express.js", level: 90 },
-      { name: "MongoDB", level: 85 },
-      { name: "SQL", level: 80 },
-    ],
+    title: "BACKEND",
+    color: "bg-accent",
+    skills: ["Node.js", "Express.js", "MongoDB", "REST APIs", "PostgreSQL"],
   },
   {
-    title: "Tools",
-    icon: Wrench,
-    skills: [
-      { name: "Git & GitHub", level: 92 },
-      { name: "Shadcn UI", level: 90 },
-      { name: "Java", level: 75 },
-      { name: "Python", level: 70 },
-    ],
+    title: "LANGUAGES",
+    color: "bg-secondary",
+    skills: ["JavaScript", "TypeScript", "Java", "Python", "SQL"],
   },
   {
-    title: "Cloud",
-    icon: Cloud,
-    skills: [
-      { name: "Vercel", level: 90 },
-      { name: "Render", level: 85 },
-      { name: "Cloudflare R2", level: 80 },
-      { name: "AWS S3", level: 78 },
-    ],
+    title: "TOOLS",
+    color: "bg-primary",
+    skills: ["Git", "GitHub", "Vercel", "Cloudflare", "AWS S3"],
   },
 ];
 
@@ -51,62 +29,102 @@ export const Skills = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="py-32 px-6 relative">
-      <div className="max-w-7xl mx-auto" ref={ref}>
+    <section id="skills" className="min-h-screen lg:pl-20 py-32 px-6 bg-background relative overflow-hidden">
+      {/* Geometric Decorations */}
+      <div className="absolute top-20 right-10 w-32 h-32 bg-primary/10 rotate-45" />
+      <div className="absolute bottom-20 left-10 w-40 h-40 bg-accent/10" />
+
+      <div className="max-w-7xl mx-auto relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <span className="text-primary font-display font-semibold text-sm tracking-widest uppercase">
-            Tech Stack
-          </span>
-          <h2 className="font-display font-bold text-4xl md:text-5xl mt-4">
-            Skills & <span className="text-gradient">Expertise</span>
+          <div className="font-mono text-xs tracking-widest text-muted-foreground mb-4">
+            [TECHNICAL_SKILLS]
+          </div>
+          <h2 className="font-display font-black text-7xl md:text-9xl leading-none mb-8">
+            TECH
+            <br />
+            <span className="text-primary">STACK</span>
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: categoryIndex * 0.1 }}
-              className="backdrop-blur-sm bg-card/50 border border-border rounded-3xl p-8 hover-lift hover-glow"
+              className="group"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-primary/10 rounded-xl">
-                  <category.icon className="h-6 w-6 text-primary" />
+              <div className="bg-muted border-4 border-foreground overflow-hidden">
+                {/* Header */}
+                <div className={`${category.color} border-b-4 border-foreground p-6`}>
+                  <h3 className="font-display font-black text-3xl text-background">
+                    {category.title}
+                  </h3>
                 </div>
-                <h3 className="font-display font-bold text-2xl">{category.title}</h3>
-              </div>
 
-              <div className="space-y-6">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between mb-2">
-                      <span className="font-medium text-sm">{skill.name}</span>
-                      <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={isInView ? { width: `${skill.level}%` } : {}}
-                        transition={{
-                          delay: categoryIndex * 0.1 + skillIndex * 0.1,
-                          duration: 1,
-                          ease: "easeOut",
-                        }}
-                        className="h-full bg-gradient-to-r from-primary via-secondary to-accent rounded-full"
-                      />
-                    </div>
-                  </div>
-                ))}
+                {/* Skills List */}
+                <div className="p-6 space-y-4">
+                  {category.skills.map((skill, skillIndex) => (
+                    <motion.div
+                      key={skill}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
+                      className="relative"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-mono text-sm font-bold text-foreground">
+                          {skill}
+                        </span>
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={isInView ? { width: "auto" } : {}}
+                          transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.05 + 0.3 }}
+                          className="font-mono text-xs text-muted-foreground"
+                        >
+                          [{Math.floor(Math.random() * 20) + 80}%]
+                        </motion.div>
+                      </div>
+                      
+                      {/* Progress Bar */}
+                      <div className="h-2 bg-background border-2 border-foreground overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={isInView ? { width: `${Math.floor(Math.random() * 20) + 80}%` } : {}}
+                          transition={{ 
+                            delay: categoryIndex * 0.1 + skillIndex * 0.05 + 0.2,
+                            duration: 0.8,
+                            ease: "easeOut"
+                          }}
+                          className={`h-full ${category.color}`}
+                        />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom Statement */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.6 }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-block bg-foreground text-background border-4 border-foreground brutalist-shadow px-8 py-4">
+            <p className="font-mono text-lg font-bold">
+              {">"} ALWAYS LEARNING. ALWAYS BUILDING. ALWAYS SHIPPING.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
